@@ -14,7 +14,4 @@
 	export let data;
 </script>
 
-<div class="container mx-auto p-8 space-y-8">
-	<h1 class="h1">Scanerator Notion Data</h1>
-	<CodeBlock language="json" code={JSON.stringify(data.db, null, 2)} />
-</div>
+<CodeBlock language="json" code={JSON.stringify(data.db, null, 2)} />
