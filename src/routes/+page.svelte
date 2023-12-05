@@ -7,6 +7,7 @@
 	hljs.registerLanguage('json', json);
 	import 'highlight.js/styles/github-dark.css';
 	import { storeHighlightJs } from '@skeletonlabs/skeleton';
+	import Scanner from '$lib/Scanner.svelte';
 	storeHighlightJs.set(hljs);
 	//end
 
@@ -14,4 +15,5 @@
 	export let data;
 </script>
 
+<Scanner />
 <CodeBlock language="json" code={JSON.stringify(data.db, null, 2)} />
