@@ -63,28 +63,25 @@
 	});
 </script>
 
-<div class="cam-container">
+<div class="flex flex-col">
 	{#if hasCamera}
 		<div>
 			<button on:click={toggleScan} class:isScanning class="btn variant-filled" type="button"
 				>Toggle Scan</button
 			>
-			<p>{latestScan}</p>
-			{#if hasFlash}
-				<button on:click={toggleFlash} class="btn variant-filled" type="button"
-					>Toggle Flash
-					{#if flashOn}
-						<LucideLightbulb />
-					{:else}
-						<LucideLightbulbOff />
-					{/if}
-				</button>
-			{/if}
+			<button on:click={toggleFlash} class="btn variant-filled" type="button" disabled={!hasFlash}
+				>Toggle Flash
+				{#if flashOn}
+					<LucideLightbulb />
+				{:else}
+					<LucideLightbulbOff />
+				{/if}
+			</button>
 		</div>
 	{:else}
 		<p>No Camera!</p>
 	{/if}
-
+	<p>{latestScan}</p>
 	<div id="video-container">
 		<!-- svelte-ignore a11y-media-has-caption -->
 		<video bind:this={videoElem} class="camera"></video>
@@ -93,9 +90,6 @@
 
 <style>
 	/* @import ~the styles from QrScanner~ for layer purposes instead of !important*/
-	.cam-container {
-		grid-column: auto;
-	}
 	.camera {
 		display: block;
 		height: 100%;
