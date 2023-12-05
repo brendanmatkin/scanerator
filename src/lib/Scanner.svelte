@@ -1,9 +1,13 @@
-<script lang="ts">
+<script>
 	import QrScanner from 'qr-scanner';
 	import { onMount } from 'svelte';
+	import LucideLightbulbOff from '~icons/lucide/lightbulb-off';
+	import LucideLightbulb from '~icons/lucide/lightbulb'; //https://icones.js.org/collection/
 
-	let videoElem: HTMLVideoElement;
-	let qrScanner: QrScanner;
+	/** @type {HTMLVideoElement} */
+	let videoElem;
+	/** @type {QrScanner}*/
+	let qrScanner;
 
 	let hasCamera = false;
 	let isScanning = false;
@@ -17,6 +21,7 @@
 				await qrScanner.start();
 				isScanning = true;
 				hasFlash = await qrScanner.hasFlash();
+				flashOn = qrScanner.isFlashOn();
 				console.log(`[QR] scan start. Flash is ${hasFlash ? 'available.' : 'UNAVAILABLE'}`);
 			} catch (e) {
 				console.warn('[QR]', e);
@@ -66,7 +71,14 @@
 			>
 			<p>{latestScan}</p>
 			{#if hasFlash}
-				<button on:click={toggleFlash} class="btn">Toggle Flash</button>
+				<button on:click={toggleFlash} class="btn variant-filled" type="button"
+					>Toggle Flash
+					{#if flashOn}
+						<LucideLightbulb />
+					{:else}
+						<LucideLightbulbOff />
+					{/if}
+				</button>
 			{/if}
 		</div>
 	{:else}
@@ -90,6 +102,7 @@
 		object-fit: cover;
 		/* https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit */
 	}
+
 	.isScanning {
 		--hazard2: #444;
 		background-color: black;
