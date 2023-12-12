@@ -1,6 +1,6 @@
-import { Client } from '@notionhq/client';
-import { env } from '$env/dynamic/private';
-import { NOTION_DATABASEID_1 } from '$env/static/private';
+import { Client } from "@notionhq/client";
+import { env } from "$env/dynamic/private";
+import { NOTION_DATABASEID_1 } from "$env/static/private";
 
 const notion = new Client({ auth: env.NOTION_SECRET });
 
@@ -25,15 +25,15 @@ const notion = new Client({ auth: env.NOTION_SECRET });
  */
 export async function scanItem(scanData) {
 	//TODO make this runtime checkable? Enums?
-	const [ID, ContainerType] = /** @type { [ItemId, ItemContainer] } */ (scanData.split(','));
+	const [ID, ContainerType] = /** @type { [ItemId, ItemContainer] } */ (scanData.split(","));
 	//TODO check if page exists
 
 	/** @type ScannedItem */
 	const item = {
 		ID,
 		ContainerType,
-		Name: 'Test Name',
-		Tags: ['one', 'two']
+		Name: "Test Name",
+		Tags: ["one", "two"],
 	};
 	return item;
 }
@@ -44,7 +44,7 @@ export async function scanItem(scanData) {
 // });
 export async function getDatabase() {
 	const databaseObject = await notion.databases.retrieve({
-		database_id: NOTION_DATABASEID_1
+		database_id: NOTION_DATABASEID_1,
 	});
 	// console.log('[NOTION] database object:', databaseObject);
 	return databaseObject;
@@ -55,11 +55,11 @@ export async function findPageInDatabase(ID) {
 	const queryResult = await notion.databases.query({
 		database_id: NOTION_DATABASEID_1,
 		filter: {
-			property: 'ID',
+			property: "ID",
 			rich_text: {
-				equals: ID
-			}
-		}
+				equals: ID,
+			},
+		},
 	});
 	// console.log('[Notion] database query result: ', queryResult);
 	return queryResult.results;
@@ -75,8 +75,8 @@ export async function getItemPage(item) {
 	} else {
 		// (exactly 1 result)
 		// page exists, modify it
-		if ('properties' in queryResult[0]) {
-			console.log('[NOTION] page properties:', queryResult[0]?.properties);
+		if ("properties" in queryResult[0]) {
+			console.log("[NOTION] page properties:", queryResult[0]?.properties);
 		}
 	}
 }
@@ -84,7 +84,7 @@ export async function getItemPage(item) {
 //HACK this is for testing!!
 (async () => {
 	try {
-		await scanItem('A001,Basket');
+		await scanItem("A001,Basket");
 	} catch (e) {
 		console.error(e);
 	}
@@ -93,32 +93,32 @@ export async function getItemPage(item) {
 export async function createPage() {
 	const response = await notion.pages.create({
 		parent: {
-			type: 'database_id',
-			database_id: NOTION_DATABASEID_1
+			type: "database_id",
+			database_id: NOTION_DATABASEID_1,
 		},
 		properties: {
-			'Grocery item': {
-				type: 'title',
+			"Grocery item": {
+				type: "title",
 				title: [
 					{
-						type: 'text',
+						type: "text",
 						text: {
-							content: 'Tomatoes'
-						}
-					}
-				]
+							content: "Tomatoes",
+						},
+					},
+				],
 			},
 			Price: {
-				type: 'number',
-				number: 1.49
+				type: "number",
+				number: 1.49,
 			},
-			'Last ordered': {
-				type: 'date',
+			"Last ordered": {
+				type: "date",
 				date: {
-					start: '2021-05-11'
-				}
-			}
-		}
+					start: "2021-05-11",
+				},
+			},
+		},
 	});
 	console.log(response);
 }

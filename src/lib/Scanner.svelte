@@ -1,8 +1,8 @@
 <script>
-	import QrScanner from 'qr-scanner';
-	import { onMount } from 'svelte';
-	import LucideLightbulbOff from '~icons/lucide/lightbulb-off';
-	import LucideLightbulb from '~icons/lucide/lightbulb'; //https://icones.js.org/collection/
+	import QrScanner from "qr-scanner";
+	import { onMount } from "svelte";
+	import LucideLightbulbOff from "~icons/lucide/lightbulb-off";
+	import LucideLightbulb from "~icons/lucide/lightbulb"; //https://icones.js.org/collection/
 
 	/** @type {HTMLVideoElement} */
 	let videoElem;
@@ -13,7 +13,7 @@
 	let isScanning = false;
 	let hasFlash = false;
 	let flashOn = false;
-	let latestScan = '';
+	let latestScan = "";
 
 	async function toggleScan() {
 		if (!isScanning) {
@@ -22,14 +22,14 @@
 				isScanning = true;
 				hasFlash = await qrScanner.hasFlash();
 				flashOn = qrScanner.isFlashOn();
-				console.log(`[QR] scan start. Flash is ${hasFlash ? 'available.' : 'UNAVAILABLE'}`);
+				console.log(`[QR] scan start. Flash is ${hasFlash ? "available." : "UNAVAILABLE"}`);
 			} catch (e) {
-				console.warn('[QR]', e);
+				console.warn("[QR]", e);
 			}
 		} else {
 			qrScanner.stop();
 			isScanning = false;
-			console.log('[QR] scan stop');
+			console.log("[QR] scan stop");
 		}
 	}
 
@@ -40,24 +40,24 @@
 
 	onMount(async () => {
 		hasCamera = await QrScanner.hasCamera();
-		console.warn(`[QR] Camera ${hasCamera ? 'available.' : 'UNAVAILABLE'}`);
+		console.warn(`[QR] Camera ${hasCamera ? "available." : "UNAVAILABLE"}`);
 		if (hasCamera) {
 			qrScanner = new QrScanner(
 				videoElem,
 				(result) => {
-					console.log('[QR] decoded qr code:', result);
+					console.log("[QR] decoded qr code:", result);
 					latestScan = result.data;
 				},
 				{
 					/* your options or returnDetailedScanResult: true if you're not specifying any other options */
-					preferredCamera: 'environment',
+					preferredCamera: "environment",
 					maxScansPerSecond: 25,
 					// calculateScanRegion: // method that sets x,y,width,height of scan region.
 					highlightScanRegion: true,
-					highlightCodeOutline: true
+					highlightCodeOutline: true,
 					// overlay: //some div that is a sibling of videoElem. used for scanRegion and codeOutline
 					// returnDetailedScanResult:
-				}
+				},
 			);
 		}
 	});

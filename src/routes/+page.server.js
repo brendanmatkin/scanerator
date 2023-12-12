@@ -1,11 +1,11 @@
-import { getDatabase } from '$lib/notion';
+import { getDatabase } from "$lib/notion";
 
 /** @type {import('./$types').PageServerLoad} */
 // export async function load({cookies}) {
 // const dbId = cookies.get('dbId');
 export async function load() {
 	return {
-		db: (await getDatabase()) ?? {}
+		db: (await getDatabase()) ?? {},
 	};
 }
 

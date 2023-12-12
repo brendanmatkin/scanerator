@@ -1,8 +1,8 @@
 <script>
-	import '../app.pcss';
-	import { AppBar } from '@skeletonlabs/skeleton';
-	import { AppShell } from '@skeletonlabs/skeleton';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
+	import "../app.pcss";
+	import { AppBar } from "@skeletonlabs/skeleton";
+	import { AppShell } from "@skeletonlabs/skeleton";
+	import { LightSwitch } from "@skeletonlabs/skeleton";
 </script>
 
 <!-- <AppShell slotPageContent="bg-gradient-to-br variant-gradient-secondary-tertiary"> -->

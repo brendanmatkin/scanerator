@@ -1,7 +1,7 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
-import { purgeCss } from 'vite-plugin-tailwind-purgecss';
-import Icons from 'unplugin-icons/vite';
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vitest/config";
+import { purgeCss } from "vite-plugin-tailwind-purgecss";
+import Icons from "unplugin-icons/vite";
 // import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig({
@@ -9,16 +9,16 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		Icons({
-			compiler: 'svelte'
+			compiler: "svelte",
 		}),
 		purgeCss({
 			safelist: {
-				greedy: [/^hljs-/]
-			}
-		})
+				greedy: [/^hljs-/],
+			},
+		}),
 		// basicSsl()
 	],
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
+		include: ["src/**/*.{test,spec}.{js,ts}"],
+	},
 });
